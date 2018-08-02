@@ -13,4 +13,21 @@
 # Hint: this should be about 15 lines of code. No loops are required. Read the
 # docs for the calendar module closely.
 
-import sys
+# import sys
+
+# import calendar
+# import datetime
+
+# year = int(input("Enter 4 Digit Year: "))
+# month = int(input("Enter Month 1 - 12: "))
+
+
+# month_year = input ("Enter a month and year: ")
+# print(month_year)
+# # itermonthdates(month_year[0], month_year[1])
+# str = calendar.monthcalendar(1999, 1)
+# print(str)
+# print(sys.argv)
+
+
+
