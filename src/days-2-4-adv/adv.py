@@ -34,9 +34,9 @@ earlier adventurers. The only exit is to the south."""),
 
     'landing': Room("#      Staircase landing      #", """ The staircase ends on a landing to the west a large room. to the east you see streaks of light from a window at the end. rooms on both sides of the hallway  """),
 
-    'longhallway1': Room("#      Hallway      #", """ The staircase ends on a landing to the west a large room. to the east you see streaks of light from a window at the end. rooms on both sides of the hallway  """),
+    'longhallway1': Room("#      Hallway      #", """ a room door on to the north, a room door to the south. the hallway continues  """),
     
-    'longhallway2': Room("#      Hallway      #", """ The staircase ends on a landing to the west a large room. to the east you see streaks of light from a window at the end. rooms on both sides of the hallway  """),
+    'longhallway2': Room("#      Hallway      #", """ a room door on to the north, a room door to the south. the hallway continues to a door to what looks like a balcony  """),
     
     'bedroom1': Room("#      Bedroom      #", """ Its a bedroom what do you expect...... you find piece of paper missing 3 letters  a---  """),
     
@@ -72,15 +72,21 @@ room['treasure'].s_to = room['narrow']
 
 
 #upstairs
-room['landing'].e_to = room['bedroom5']
-
-room['landing'].w_to = room['longhallway1']
-room['longhallway1'].w_to = room['longhallway2']
+room['landing'].w_to = room['bedroom5']
+room['bedroom5'].e_to = room['landing']
+room['landing'].e_to = room['longhallway1']
+room['longhallway1'].e_to = room['landing']
+room['longhallway1'].e_to = room['longhallway2']
 room['longhallway1'].s_to = room['bedroom2']
+room['bedroom2'].n_to = room['longhallway1']
 room['longhallway1'].n_to = room['bedroom1']
-room['longhallway2'].w_to = room['balcony']
+room['bedroom1'].s_to = room['longhallway1']
+room['longhallway2'].e_to = room['balcony']
+room['balcony'].w_to = room['longhallway2']
 room['longhallway2'].n_to = room['bedroom3']
+room['bedroom3'].s_to = room['longhallway2']
 room['longhallway2'].s_to = room['bedroom4']
+room['bedroom4'].n_to = room['longhallway2']
 
 # room['overlook'].w_to = room['library']
 room['library'].key_to = room['secretroom']
