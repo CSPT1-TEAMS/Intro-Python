@@ -64,15 +64,18 @@ printWord(alphabet)
 # Gameplay loop
 while strikes < 5 and lettersLeft > 0:
     letter = input("\nPlease guess a letter...")
-    if letter in targetWord:
+    if not letter.upper() in alphabet:
+        print("You've already guessed that letter!")
+    elif letter in targetWord:
         print("Great!")
         fillLetters(letter)
+        alphabet.remove(letter.upper())
     else:
         strikes += 1
         print( str(strikes) + " / 5 strikes" )
+        alphabet.remove(letter.upper())
     printWord(curWord)
     drawBody()
-    alphabet.remove(letter.upper())
     print("Letters left:")
     printWord(alphabet)
 
