@@ -7,12 +7,14 @@
 # from a set of win/loss messages...basically, make it better!
 import random
 # Initial setup
+
+
 bodies = [ " ------\n |    |\n |    O\n |\n |\n |\n |\n |\n---", 
 " ------\n |    |\n |    O\n |    |\n |    |\n |\n |\n |\n---", 
 " ------\n |    |\n |    O\n |    |\n |    |\n |   / \n |\n |\n---", 
 " ------\n |    |\n |    O\n |    |\n |    |\n |   / \ \n |\n |\n---", 
 " ------\n |    |\n |    O\n |   \|\n |    |\n |   / \ \n |\n |\n---",
-" ------\n |    |\n |  O\n |   \|/\n |    |\n |   / \ \n |\n |\n---" ]
+" ------\n |    |\n |    O\n |   \|/\n |    |\n |   / \ \n |\n |\n---" ]
 strikes = 0
 words = [None]
 file = open("words.txt", "r")
@@ -22,7 +24,6 @@ file.close()
 targetWord = words[random.randint(0, len(words))]
 lettersLeft = len(targetWord)-1
 length = len(targetWord)-1
-print(length)
 curWord = "_" * length
 alphabet = [chr(65+x) for x in range(0, 26) ]
 
@@ -32,11 +33,11 @@ def drawBody():
 
 # Replace blanks with correctly guessed letters
 def fillLetters( letter ):
-    global lettersLeft
     global curWord
     for i in range(len(targetWord)-1):
         if( targetWord[i : i+1]) == letter:
             curWord = curWord[0: i] + letter + curWord[i+1: ]
+            global lettersLeft
             lettersLeft -= 1
 
 # Add spaces when displaying letters / blanks for readability
@@ -56,22 +57,29 @@ printWord(alphabet)
 # Gameplay loop
 while strikes < 5 and lettersLeft > 0:
     letter = input("\nPlease guess a letter...")
-    if letter in targetWord:
+    if not letter.isalpha():
+        print("Please only enter letters")
+    elif len(letter) > 1:
+        print("Enter 1 letter at a time")    
+    elif not letter.upper() in alphabet:
+        print("You already guessed this letter!")
+    elif letter in targetWord:
         print("Great!")
         fillLetters(letter)
-
+        alphabet.remove(letter.upper())
     else:
         strikes += 1
         print( str(strikes) + " / 5 strikes" )
-    alphabet.remove(letter.upper())
-    print("Letters left:")
-    printWord(alphabet)
+        alphabet.remove(letter.upper())
     printWord(curWord)
     drawBody()
+
+    print("Letters left:")
+    printWord(alphabet)
    
 
 # Game over, print outcome
-if lettersLeft < 0:
-    print("YOU WIN!!")
+if lettersLeft == 0:
+    print("YOU WIN!! The word is " + targetWord + "!!!")
 else:
     print("YOU LOSE...word was " + targetWord)
