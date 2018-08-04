@@ -19,9 +19,10 @@ file = open("words.txt", "r")
 for line in file:
     words.append(line)
 file.close()
-targetWord = words[random.randint(0, 80)]
+targetWord = words[random.randint(0, len(words))]
 lettersLeft = len(targetWord)-1
 length = len(targetWord)-1
+print(length)
 curWord = "_" * length
 alphabet = [chr(65+x) for x in range(0, 26) ]
 
@@ -31,11 +32,11 @@ def drawBody():
 
 # Replace blanks with correctly guessed letters
 def fillLetters( letter ):
+    global lettersLeft
+    global curWord
     for i in range(len(targetWord)-1):
         if( targetWord[i : i+1]) == letter:
-            global curWord
-            curWord = curWord[0: i] + letter + curWord[i: ]
-            global lettersLeft
+            curWord = curWord[0: i] + letter + curWord[i+1: ]
             lettersLeft -= 1
 
 # Add spaces when displaying letters / blanks for readability
@@ -58,14 +59,16 @@ while strikes < 5 and lettersLeft > 0:
     if letter in targetWord:
         print("Great!")
         fillLetters(letter)
+
     else:
         strikes += 1
         print( str(strikes) + " / 5 strikes" )
-    printWord(curWord)
-    drawBody()
     alphabet.remove(letter.upper())
     print("Letters left:")
     printWord(alphabet)
+    printWord(curWord)
+    drawBody()
+   
 
 # Game over, print outcome
 if lettersLeft < 0:
