@@ -19,7 +19,7 @@ file = open("words.txt", "r")
 for line in file:
     words.append(line)
 file.close()
-targetWord = words[random.randint(0, 100)]
+targetWord = words[random.randint(0, 80)]
 lettersLeft = len(targetWord)-1
 length = len(targetWord)-1
 curWord = "_" * length
@@ -33,6 +33,7 @@ def drawBody():
 def fillLetters( letter ):
     for i in range(len(targetWord)-1):
         if( targetWord[i : i+1]) == letter:
+            global curWord
             curWord = curWord[0: i] + letter + curWord[i: ]
             global lettersLeft
             lettersLeft -= 1
@@ -45,7 +46,7 @@ def printWord( word ):
     print(prntWord)
 
 # Begin game
-print( "Welcome to Hangmn!" )
+print( "Welcome to Hangman!" )
 printWord(curWord)
 drawBody()
 print("Letters left:")
@@ -59,7 +60,7 @@ while strikes < 5 and lettersLeft > 0:
         fillLetters(letter)
     else:
         strikes += 1
-        print( strikes + " / 5 strikes" )
+        print( str(strikes) + " / 5 strikes" )
     printWord(curWord)
     drawBody()
     alphabet.remove(letter.upper())
