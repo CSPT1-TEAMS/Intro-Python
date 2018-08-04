@@ -29,9 +29,6 @@ print("TARGET WORD:", targetWord)
 lettersLeft = len(targetWord)-1
 length = len(targetWord)-1
 curWord = "_" * length
-
-print("CUR WORD", curWord)
-
 alphabet = [chr(65+x) for x in range(0, 26)]
 
 # Draw body based on # of incorrect guesses
@@ -64,7 +61,9 @@ printWord(alphabet)
 # Gameplay loop
 while strikes < 5 and lettersLeft > 0:
     letter = input("\nPlease guess a letter...")
-    if not letter.upper() in alphabet:
+    if not letter.isalpha():
+        print("Only letters allowed!")
+    elif not letter.upper() in alphabet:
         print("You've already guessed that letter!")
     elif letter in targetWord:
         print("Great!")
