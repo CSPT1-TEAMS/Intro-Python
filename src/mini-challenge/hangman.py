@@ -42,11 +42,8 @@ def drawBody():
 def fillLetters(letter):
     for i in range(len(targetWord)-1):
         if( targetWord[i : i+1]) == letter:
-
-            print("curWord", curWord, i)
-
-            # global curWord
-            curWord = curWord[0: i] + letter + curWord[i: ]
+            global curWord
+            curWord = curWord[0: i] + letter + curWord[i+1: ]
             global lettersLeft
             lettersLeft -= 1
 
