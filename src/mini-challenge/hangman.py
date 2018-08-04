@@ -5,7 +5,7 @@
 # STRETCH GOAL: If you fix all the errors, can you find a way to improve 
 # it? Add a cheat code, more error handling, chose randomly
 # from a set of win/loss messages...basically, make it better!
-
+import random
 # Initial setup
 bodies = [ " ------\n |    |\n |    O\n |\n |\n |\n |\n |\n---", 
 " ------\n |    |\n |    O\n |    |\n |    |\n |\n |\n |\n---", 
@@ -15,7 +15,7 @@ bodies = [ " ------\n |    |\n |    O\n |\n |\n |\n |\n |\n---",
 " ------\n |    |\n |  O\n |   \|/\n |    |\n |   / \ \n |\n |\n---" ]
 strikes = 0
 words = [None]
-file = open("word.txt", "r")
+file = open("words.txt", "r")
 for line in file:
     words.append(line)
 file.close()
@@ -23,10 +23,10 @@ targetWord = words[random.randint(0, 100)]
 lettersLeft = len(targetWord)-1
 length = len(targetWord)-1
 curWord = "_" * length
-alphabet = [chr(65+x) for x in range(1, 26) ]
+alphabet = [chr(65+x) for x in range(0, 26) ]
 
 # Draw body based on # of incorrect guesses
-def drawBody()
+def drawBody():
     print(bodies[strikes])
 
 # Replace blanks with correctly guessed letters
