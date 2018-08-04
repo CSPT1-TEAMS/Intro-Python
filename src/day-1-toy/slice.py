@@ -1,26 +1,31 @@
-a = [2, 4, 1, 7, 9, 6]
+# Experiment with scope in Python.
+# Good reading: https://www.programiz.com/python-programming/global-local-nonlocal-variables
 
-# Output the second element: 4:
-print()
+# When you use a variable in a function, it's local in scope to the function.
+x = 12
 
-# Output the second-to-last element: 9
-print()
+def changeX():
+    global x
+    x = 99
 
-# Output the last three elements in the array: [7, 9, 6]
-print()
+changeX()
 
-# Output the two middle elements in the array: [1, 7]
-print()
+# This prints 12. What do we have to modify in changeX() to get it to print 99?
+print(x)
 
-# Output every element except the first one: [4, 1, 7, 9, 6]
-print()
 
-# Output every element except the last one: [2, 4, 1, 7, 9]
-print()
+# This nested function has a similar problem.
 
-# For string s...
+def outer():
+    y = 120
 
-s = "Hello, world!"
+    def inner():
+        nonlocal y
+        y = 999
 
-# Output just the 8th-12th characters: "world"
-print()
+    inner()
+
+    # This prints 120. What do we have to change in inner() to get it to print
+    # 999? Google "python nested function scope".
+    print(y)
+outer()
