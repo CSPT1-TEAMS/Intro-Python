@@ -21,10 +21,10 @@ file = open("words.txt", "r")
 for line in file:
     words.append(line)
 file.close()
-targetWord = words[random.randint(0, len(words))]
-lettersLeft = len(targetWord)-1
-length = len(targetWord)-1
-curWord = "_" * length
+target_word = words[random.randint(0, len(words))]
+letters_left = len(target_word)-1
+length = len(target_word)-1
+cur_word = "_" * length
 alphabet = [chr(65+x) for x in range(0, 26) ]
 
 # Draw body based on # of incorrect guesses
@@ -33,29 +33,29 @@ def drawBody():
 
 # Replace blanks with correctly guessed letters
 def fillLetters( letter ):
-    global curWord
-    for i in range(len(targetWord)-1):
-        if( targetWord[i : i+1]) == letter:
-            curWord = curWord[0: i] + letter + curWord[i+1: ]
-            global lettersLeft
-            lettersLeft -= 1
+    global cur_word
+    for i in range(len(target_word)-1):
+        if( target_word[i : i+1]) == letter:
+            cur_word = cur_word[0: i] + letter + cur_word[i+1: ]
+            global letters_left
+            letters_left -= 1
 
 # Add spaces when displaying letters / blanks for readability
 def printWord( word ):
-    prntWord = ""
+    prnt_word = ""
     for letter in word:
-        prntWord += letter + " "
-    print(prntWord)
+        prnt_word += letter + " "
+    print(prnt_word)
 
 # Begin game
 print( "Welcome to Hangman!" )
-printWord(curWord)
+printWord(cur_word)
 drawBody()
 print("Letters left:")
 printWord(alphabet)
 
 # Gameplay loop
-while strikes < 5 and lettersLeft > 0:
+while strikes < 5 and letters_left > 0:
     letter = input("\nPlease guess a letter...")
     if not letter.isalpha():
         print("Please only enter letters")
@@ -63,7 +63,7 @@ while strikes < 5 and lettersLeft > 0:
         print("Enter 1 letter at a time")    
     elif not letter.upper() in alphabet:
         print("You already guessed this letter!")
-    elif letter in targetWord:
+    elif letter in target_word:
         print("Great!")
         fillLetters(letter)
         alphabet.remove(letter.upper())
@@ -71,7 +71,7 @@ while strikes < 5 and lettersLeft > 0:
         strikes += 1
         print( str(strikes) + " / 5 strikes" )
         alphabet.remove(letter.upper())
-    printWord(curWord)
+    printWord(cur_word)
     drawBody()
 
     print("Letters left:")
@@ -79,7 +79,7 @@ while strikes < 5 and lettersLeft > 0:
    
 
 # Game over, print outcome
-if lettersLeft == 0:
-    print("YOU WIN!! The word is " + targetWord + "!!!")
+if letters_left == 0:
+    print("YOU WIN!! The word is " + target_word + "!!!")
 else:
-    print("YOU LOSE...word was " + targetWord)
+    print("YOU LOSE...word was " + target_word)
