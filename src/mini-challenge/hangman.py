@@ -15,7 +15,7 @@ bodies = [ " ------\n |    |\n |    O\n |\n |\n |\n |\n |\n---",
 " ------\n |    |\n |    O\n |    |\n |    |\n |   / \n |\n |\n---", 
 " ------\n |    |\n |    O\n |    |\n |    |\n |   / \ \n |\n |\n---", 
 " ------\n |    |\n |    O\n |   \|\n |    |\n |   / \ \n |\n |\n---",
-" ------\n |    |\n |  O\n |   \|/\n |    |\n |   / \ \n |\n |\n---" ]
+" ------\n |    |\n |    O\n |   \|/\n |    |\n |   / \ \n |\n |\n---" ]
 strikes = 0
 words = [None]
 file = open("word.txt", "r")
@@ -77,7 +77,7 @@ while strikes < 5 and lettersLeft > 0:
     printWord(alphabet)
 
 # Game over, print outcome
-if lettersLeft < 0:
+if lettersLeft == 0:
     print("YOU WIN!!")
 else:
     print("YOU LOSE...word was " + targetWord)
