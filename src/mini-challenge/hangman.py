@@ -23,32 +23,42 @@ for line in file:
     words.append(line)
 file.close()
 targetWord = words[random.randint(0, len(words))]
+
+print("TARGET WORD:", targetWord)
+
 lettersLeft = len(targetWord)-1
 length = len(targetWord)-1
 curWord = "_" * length
-alphabet = [chr(65+x) for x in range(1, 26) ]
+
+print("CUR WORD", curWord)
+
+alphabet = [chr(65+x) for x in range(0, 26)]
 
 # Draw body based on # of incorrect guesses
 def drawBody():
     print(bodies[strikes])
 
 # Replace blanks with correctly guessed letters
-def fillLetters( letter ):
+def fillLetters(letter):
     for i in range(len(targetWord)-1):
         if( targetWord[i : i+1]) == letter:
+
+            print("curWord", curWord, i)
+
+            # global curWord
             curWord = curWord[0: i] + letter + curWord[i: ]
             global lettersLeft
             lettersLeft -= 1
 
 # Add spaces when displaying letters / blanks for readability
-def printWord( word ):
+def printWord(word):
     prntWord = ""
     for letter in word:
         prntWord += letter + " "
     print(prntWord)
 
 # Begin game
-print( "Welcome to Hangmn!" )
+print("Welcome to Hangman!")
 printWord(curWord)
 drawBody()
 print("Letters left:")
@@ -62,7 +72,7 @@ while strikes < 5 and lettersLeft > 0:
         fillLetters(letter)
     else:
         strikes += 1
-        print( strikes + " / 5 strikes" )
+        print( str(strikes) + " / 5 strikes" )
     printWord(curWord)
     drawBody()
     alphabet.remove(letter.upper())
