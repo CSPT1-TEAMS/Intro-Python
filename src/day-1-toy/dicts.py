@@ -25,5 +25,7 @@ waypoints = [
 ]
 
 # Write a loop that prints out all the field values for all the waypoints
+for val in enumerate(waypoints):
+  print(val)
 
 # Add a new waypoint to the list
