@@ -1,5 +1,5 @@
-from player import Player
 from room import Room
+from player import Player
 
 
 # Declare all the rooms
@@ -40,20 +40,31 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-greg = Player( room['outside'] )
+player = Player( 'Greg', room['outside'] )
 
+# print(greg.room)
 
 # Write a loop that:
-#
-while not dir == "q":
+print( f"Welcome, {player.name}! Let's begin our adventure." )
+print(player.room, "\n", player.room.description)
     # * Prints the current room name
-    print(greg.room)
     # * Prints the current description (the textwrap module might be useful here).
-    print(greg.room.description)
+# print(greg.room, "\n", greg.room.description)
 
+while not dir == "q":
     # * Waits for user input
-    dir = input("Please enter a direction...n, s, e, w OR q to quit game.")
-
+    # print("\n")
+    dir = input("Please enter a direction...n, s, e, w OR q to quit game. \n")
+    if dir is "n" or dir is "s" or dir is "e" or dir is "w":
+        if hasattr(player.room, dir + '_to'):
+            player.room = getattr(player.room, dir + '_to')
+            print("---------")
+            print(player.room, "\n", player.room.description)
+            print("---------")
+        else:
+            print("You have made an invalid entry. Try again.")
+    elif dir != "q":
+        print("Please choose direction or q to quit")
     #  decides what to do.
     # if north
     # elif south
@@ -66,3 +77,5 @@ while not dir == "q":
     # Print an error message if the movement isn't allowed.
 
     # If the user enters "q", quit the game.
+print("You have quit")
+"Exit"
