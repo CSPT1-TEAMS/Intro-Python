@@ -5,12 +5,13 @@
 x = 12
 
 def changeX():
+    global x
     x = 99
 
 changeX()
-
 # This prints 12. What do we have to modify in changeX() to get it to print 99?
 print(x)
+
 
 
 # This nested function has a similar problem.
@@ -19,6 +20,7 @@ def outer():
     y = 120
 
     def inner():
+        global y
         y = 999
 
     inner()
@@ -28,3 +30,8 @@ def outer():
     print(y)
 
 outer()
+
+print(y)
+
+# to make the global scope work in a nested function you must call global inside the function, print
+# ...and then call the outer function -> print() variable

@@ -6,5 +6,5 @@ z = "I like turtles!"
 # y, and z:
 # x is 10, y is 2.25, z is "I like turtles!"
 
-
+print("x is %s and y is %s while here I am like '%s'" %(x, y, z))
 # Use the 'format' string method to print the same thing

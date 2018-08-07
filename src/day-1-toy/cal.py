@@ -14,3 +14,18 @@
 # docs for the calendar module closely.
 
 import sys
+import calendar
+import datetime
+#sys.argv[0] is name of program
+
+month = sys.argv[1]
+year = sys.argv[2]
+print(str( month ) + ", " + str(year))
+
+#if month
+sys.stderr.write('This is stderr text \n')
+sys.stderr.flush()
+print(calendar.setfirstweekday(2))
+
+sys.stdout.write('This is stdout text \n')
+print(sys.argv)

@@ -1,11 +1,14 @@
+from player import Player
 from room import Room
+# from item import Item
 
 # Declare all the rooms
 
+
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
-
+                     """North of you, the cave mount beckons"""),
+ 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
 
@@ -32,20 +35,55 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
-
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
+navy = Player(room['outside'])
+dir = ""
 # Write a loop that:
-#
+while not dir == "q": 
 # * Prints the current room name
+    print("\n.:Room:.", navy.room.name)
 # * Prints the current description (the textwrap module might be useful here).
+    print(navy.room.description)
 # * Waits for user input and decides what to do.
-#
+    dir = input("\nPlease enter a direction... w, s, a, d OR q to quit the game\n")
 # If the user enters a cardinal direction, attempt to move to the room there.
+#if north
+    if dir == "w":
+        if hasattr(navy.room, "n_to"):
+            navy.room = navy.room.n_to
+        else:
+            print("Sorry, can't move in that direction")
+    # elif south
+    elif dir == "s":
+        if hasattr(navy.room, "s_to"):
+            navy.room = navy.room.s_to
+        else:
+            print("There's a wall!")     
+    # elif east
+    elif dir == "a":
+        if hasattr(navy.room, "e_to"):
+            navy.room = navy.room.e_to
+        else:
+            print("Can't go there")
+    # elif west
+    elif dir == "d":
+        if hasattr(navy.room, "w_to"):
+            navy.room = navy.room.w_to
+        else:
+            print("Nothing that way!")
+    # elif quit
+    elif dir == "q":
+        print("Thanks for playing!")
+    # else invalid
+    else:
+        print("\nInvalid selection.")
+# use has_attribute to see if the user can move in that direction
+
+
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
