@@ -40,11 +40,14 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-player = Player( 'Greg', room['outside'] )
 
 # print(greg.room)
 
 # Write a loop that:
+print( f"Welcome! What's your name?" )
+name = input()
+player = Player( name, room['outside'] )
+
 print( f"Welcome, {player.name}! Let's begin our adventure." )
 print(player.room, "\n", player.room.description)
     # * Prints the current room name
@@ -62,7 +65,9 @@ while not dir == "q":
             print(player.room, "\n", player.room.description)
             print("---------")
         else:
-            print("You have made an invalid entry. Try again.")
+            print("**********")
+            print("You cannot go that direction. Try again.")
+            print("**********")
     elif dir != "q":
         print("Please choose direction or q to quit")
     #  decides what to do.
