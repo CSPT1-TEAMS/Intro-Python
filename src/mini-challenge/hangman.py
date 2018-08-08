@@ -21,7 +21,7 @@ file = open("words.txt", "r")
 for line in file:
     words.append(line)
 file.close()
-targetWord = words[random.randint(0, 100)]
+targetWord = words[random.randint(0, 99)]
 lettersLeft = len(targetWord)-1
 length = len(targetWord)-1
 alphabet = [chr(65+x) for x in range(0, 26) ]
@@ -35,7 +35,8 @@ def drawBody():
 def fillLetters( letter ):
     for i in range(len(targetWord)-1):
         if( targetWord[i : i+1]) == letter:
-            curWord = curWord[0: i] + letter + curWord[i: ]
+            global curWord
+            curWord = curWord[0: i] + letter + curWord[i+1: ]
             global lettersLeft
             lettersLeft -= 1
 
@@ -69,7 +70,7 @@ while strikes < 5 and lettersLeft > 0:
     printWord(alphabet)
 
 # Game over, print outcome
-if lettersLeft < 0:
+if lettersLeft == 0:
     print("YOU WIN!!")
 else:
     print("YOU LOSE...word was " + targetWord)
