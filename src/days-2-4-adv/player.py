@@ -3,4 +3,5 @@
 class Player:
     def __init__(self, room, items):
         self.room = room
-        self.items =  ["sword", "shield", ]
+        self.items =  [ "shield", ]
+        self.hp = ["hp", "hp", "hp", ]
