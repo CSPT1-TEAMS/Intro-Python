@@ -55,19 +55,15 @@ room['library'].e_to = room['foyer']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-andrew = Player(
-    'Andrew',
-    room['outside'],
-    [Item(
-        'Old Notebook',
-        """You seem to be holding an old, water-stained notebook.
-        Some of the pages appear to be torn out, although you can almost make out
-        what was scribbled onto the last page... it looks like it might be someone's name."""
-    )]
+andrew = Player('Andrew', room['outside'], [Item(
+    'Old Notebook',
+    """You seem to be holding an old, water-stained notebook.
+    Some of the pages appear to be torn out, although you can almost make out
+    what was scribbled onto the last page... it looks like it might be someone's name.""")]
 )
 
 cmd = ''
-
+done = False
 
 def print_room_info():
     # * Prints the current room name
@@ -76,6 +72,21 @@ def print_room_info():
     print(andrew.room.description)
     # * Print all the items in the current room
     andrew.room.print_items()
+
+while not done:
+    cmd = input(
+        """Please enter a command:
+        \n
+        \t - choose a direction (n,s,e,w),
+        \t - grab an item (g <name_of_item>)
+        \t - quit (q)
+        \t - view inventory (i)
+        \n
+        """)
+
+    if cmd == 'q':
+        done = True
+
 
 # Write a loop that:
 #
