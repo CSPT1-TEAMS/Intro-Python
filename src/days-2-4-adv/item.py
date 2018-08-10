@@ -2,32 +2,36 @@ class Item:
     def __init__(self, name, description):
         self.name = name
         self.description = description
+        self.value = 0
+        self.picked_up = False
     
     def __str__(self):
         return self.name + " " + self.description
 
-    def on_grab():
-        print("...Got it!")
-        player.items.append(self)
-        # remove item from room
-        player.room.items.remove(self)
+    def on_grab(self, player):
+        print("grabbing")
         if self.picked_up == False:
-        # update treasure
-            player.items += self.items
+            # update treasure
+            # player.score += self.value
+            self.picked_up == True
+    
+    def on_drop(self, player):
+        Link.room.items.append(self)
+        # remove item from possession
+        Link.items.remove(self)
 
+class Treasure( Item ):
+    def __init__(self, name, description, value):
+        super().__init__(name, description)
+        self.name = name
+        self.picked_up = False
 
-# class Treasure( Item ):
-#     def __init__(self, name, description, value):
-#         super().__init__(name, description)
-#         self.name = name
-#         self.picked_up = False
-
-#     def on_grab(self, player):
-#         super().on_grab( player )
-#         if self.picked_up == False:
-#             # update treasure
-#             player.score += self.value
-#             self.picked_up == True
+    def on_grab(self, player):
+        super().on_grab(self, player)
+        if self.picked_up == False:
+            # update treasure
+            player.score += self.value
+            self.picked_up == True
 
 
 
@@ -45,11 +49,12 @@ class Item:
 #             self.picked_up == True
 
 
-# class Master_Sword( Item ):
-#     def __init__(self, name, description, value):
-#         super().__init__(name, description)
-#         self.value = value
-#         self.picked_up = False
+class Master_Sword( Item ):
+    def __init__(self, name, description, value):
+        super().__init__(name, description)
+        self.value = value
+        self.picked_up = False
     
-#     def on_grab( self, player ):
+    def on_grab( self, player ):
+        super().grab(self, player)
 

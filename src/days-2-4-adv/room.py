@@ -11,15 +11,14 @@ class Room:
     def has_items(self):
         if len(self.items) > 0:
             print("Navy: HEY!")
-        return False
 
-    def view_items(self):
-            print("Items found in this room: \n")
-            if len(self.items) == 0:
-                print(" none")
-            else:
-                for i in self.items:
-                    print("\t" + i.name)
+    # def view_items(self):
+    #         print("Items found in this room: \n")
+    #         if len(self.items) == 0:
+    #             print(" none")
+    #         else:
+    #             for i in self.items:
+    #                 print("\t" + i.name)
 
         # def view_items( self ):
         #     str_items = ("Items found in this room: \n")

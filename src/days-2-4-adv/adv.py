@@ -17,12 +17,12 @@ into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm.""", []),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", ["key"]),
+to north. The smell of gold permeates the air.""", []),
 
     'treasure': Room("Treasure Chamber", """Navy: HEY, LISTEN! This treasure requires a key. 
 We should be able to find it in this dungeon! You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", ["sword"]),
+earlier adventurers. The only exit is to the south.""", [Item("sword","sharp")]),
 }
 
 
@@ -49,6 +49,7 @@ def print_room_info():
     print("\nHey Listen! We are in room", Link.room.name)
 # * Prints the current description (the textwrap module might be useful here).
     print(Link.room.description)
+    print(Link.items)
 # * Waits foLinkr user input and decides what to do.
     # print( Link.room.view_items())
     print("\nItems found in this room: ")
@@ -56,7 +57,7 @@ def print_room_info():
         print("      none")
     else:
         for i in Link.room.items:
-            print("\t .: " + i.name)
+            print("\n .: " + i.name)
 
 def has_key():
     for i in Link.items:
@@ -71,37 +72,38 @@ def has_sword():
         return False
 
 
-print()
 # cmd = print_help()
+cmd_menu = "\n < ---.: ^ : .--------Welcome to Hyrule--------.: ^ : .---> \n \nPlease enter a direction... w, s, a, d to move \n \nk to pick up/use an item and j to use the sword. \nq to quit the game\n \n"
 
 while not cmd == "q":
-    # cmd = input("\n < ---.: ^ : .--------Welcome to Hyrule--------.: ^ : .---> \n \nPlease enter a direction... w, s, a, d to move \n \nk to pick up/use an item and j to use the sword. \nq to quit the game\n \n")
+    cmd = input(cmd_menu)
 # If the user enters a cardinal direction, attempt to move to the room there.
     if Link.hp == 0:
         print("You lose!")
         # cmd = "q"
         exit()
+        
+    if Link.room.items:
+        print(Link.room.has_items())
 
     parsed_cmd = cmd.split()
     if len(parsed_cmd) > 1:
+        print(parsed_cmd)
         action = parsed_cmd[0]
         item = ""
         for i in range(1, len(parsed_cmd)):
             item += parsed_cmd[i] + " "
-        item = item.strip() # to remove extra trailing space
+        item = item.strip() # to remove extra trailing space 
         
-        if action == "i" or action == "item":
-                for i in Link.room.items:
-                    print("before")
-                    print(i)
+        if action == "g" or action == "grab":
+            for i in Link.room.items:
+                print(i)
+            for i in Link.room.items:
+                if parsed_cmd[1] == i.name:
+                    i.on_grab(Link)
+                    Link.grab(i)
 
-                for i in Link.room.items:
-                    if parsed_cmd[1] == i.name:
-                        i.on_grab( Link )
-
-                for i in Link.room.items:
-                    print("after")
-                    print(i)
+            cmd = input()
 
     elif cmd == "hp":
         cmd = input("Life: " + str(Link.hp) + "\n")
@@ -109,12 +111,13 @@ while not cmd == "q":
     elif cmd == "u" or cmd == "use":
         for i in Link.items:
             if parsed_cmd[1] == i.name:
-                print("...Used your item!")
-                Link.room.items.append(i)
-                # remove item from possession
-                Link.items.remove(i)
-                #wait for user input
-
+                print(i)
+            for i in Link.items:
+                if parsed_cmd[1] ==i.name:
+                    i.on_drop(Link)
+                    Link.drop(i)
+            cmd = input()
+            
     #elif action == "o" or action =="open"
 
     elif cmd == "j":
@@ -153,8 +156,7 @@ while not cmd == "q":
         print("Navy: Thanks for playing!")
     # else invalid
     else:
-        cmd = input("\nInvalid selection.")
-        exit()
+        cmd = input("\nInvalid selection.\n")
 # use has_attribute to see if the user can move in that direction
 
 
