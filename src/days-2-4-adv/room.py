@@ -20,13 +20,13 @@ class Room:
     #             for i in self.items:
     #                 print("\t" + i.name)
 
-        # def view_items( self ):
-        #     str_items = ("Items found in this room: \n")
-        #     if len( self.items ) == 0:
-        #         str_items += "\tnone"
-        #     else:
-        #         for i in self.items:
-        #             str_items += "\t" + str(i) + "\n"
-        #     return str_items
+    def view_items( self ):
+        str_items = ("Items found in this room: \n")
+        if len( self.items ) == 0:
+            str_items += "\tnone"
+        else:
+            for i in self.items:
+                str_items += "\t" + str(i) + "\n"
+        return str_items
 
 

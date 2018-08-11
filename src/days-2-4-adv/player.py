@@ -6,9 +6,16 @@ class Player:
         self.items =  [ "shield", ]
         self.hp = ["hp", "hp", "hp", ]
 
+    def __str__(self):
+        return self.name
+
+    def player_info(self, hp, items):
+        print(self.hp)
+        print(str(self.items))
+
     def grab(self, item):
         # item.on_grab()
-        print("...Got it!")
+        print("...Got", item)
         self.items.append(item)
         # remove item from room
         self.room.items.remove(item)

@@ -1,6 +1,6 @@
 from player import Player
 from room import Room
-from item import Item
+from item import Item, Key
 
 # Declare all the rooms
 
@@ -10,7 +10,7 @@ room = {
                      """North of you, the cave mount beckons""", []),
  
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", [Item("key", "Key unlocks a treasure")]),
+passages run north and east.""", [(Key("key", "Opens chests "))]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
@@ -44,20 +44,6 @@ room['treasure'].s_to = room['narrow']
 Link = Player(room['outside'], [])
 cmd = ""
 # Write a loop that:
-def print_room_info():
-# * Prints the current room name
-    print("\nHey Listen! We are in room", Link.room.name)
-# * Prints the current description (the textwrap module might be useful here).
-    print(Link.room.description)
-    print(Link.items)
-# * Waits foLinkr user input and decides what to do.
-    # print( Link.room.view_items())
-    print("\nItems found in this room: ")
-    if len(Link.room.items) == 0:
-        print("      none")
-    else:
-        for i in Link.room.items:
-            print("\n .: " + i.name)
 
 def has_key():
     for i in Link.items:
@@ -72,19 +58,20 @@ def has_sword():
         return False
 
 
-# cmd = print_help()
-cmd_menu = "\n < ---.: ^ : .--------Welcome to Hyrule--------.: ^ : .---> \n \nPlease enter a direction... w, s, a, d to move \n \nk to pick up/use an item and j to use the sword. \nq to quit the game\n \n"
+def print_room_info():
+    print("\n < ---.: ^ : .--------Welcome to Hyrule--------.: ^ : .---> \n")
+    print("\nPlease enter a direction... w, s, a, d to move \n to pick up/use an item and j to use the sword.\n \nq to quit the game\n")
+    print(str(Link.items) + "\t" + str(Link.hp))
+    print("\nHey Listen! We are in room", Link.room.name)
+    print("\n")
 
 while not cmd == "q":
-    cmd = input(cmd_menu)
+    cmd = input(str(print_room_info())+"\n")
 # If the user enters a cardinal direction, attempt to move to the room there.
     if Link.hp == 0:
         print("You lose!")
         # cmd = "q"
         exit()
-        
-    if Link.room.items:
-        print(Link.room.has_items())
 
     parsed_cmd = cmd.split()
     if len(parsed_cmd) > 1:
@@ -97,17 +84,13 @@ while not cmd == "q":
         
         if action == "g" or action == "grab":
             for i in Link.room.items:
-                print(i)
+                print(str(i))
             for i in Link.room.items:
                 if parsed_cmd[1] == i.name:
                     i.on_grab(Link)
                     Link.grab(i)
-
             cmd = input()
-
-    elif cmd == "hp":
-        cmd = input("Life: " + str(Link.hp) + "\n")
-
+            
     elif cmd == "u" or cmd == "use":
         for i in Link.items:
             if parsed_cmd[1] == i.name:
@@ -117,7 +100,9 @@ while not cmd == "q":
                     i.on_drop(Link)
                     Link.drop(i)
             cmd = input()
-            
+
+    elif cmd == "hp":
+        cmd = input("Life: " + str(Link.hp) + "\n")
     #elif action == "o" or action =="open"
 
     elif cmd == "j":
@@ -126,7 +111,9 @@ while not cmd == "q":
         else:
             print("Navy: LISTEN! We need to find you a weapon")
     elif cmd == "n":
-        print(print_room_info())
+        print(Link.room.view_items())
+        cmd = input()
+
 #if north
     elif cmd == "w":
         if hasattr(Link.room, "n_to"):
