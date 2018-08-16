@@ -6,4 +6,8 @@ class Player:
         self.name = name
         self.room = room
         self.items = items
+
+    def print_player_items(self):
+        for item in self.items:
+            print(item + '\n')
         

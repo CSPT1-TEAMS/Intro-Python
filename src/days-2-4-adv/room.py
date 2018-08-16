@@ -6,11 +6,12 @@ class Room:
         self.name = name
         self.description = description
         self.items = items
-    def print_items(self):
+
+    def print_items(self, player):
         if len(self.items) == 0:
-            print("No items in the " + andrew.room.name)
+            print("No items in the " + player.room.name)
         else:
+            print('Items in this room:\n')
             for item in self.items:
                 print('\t', item)
 
-            

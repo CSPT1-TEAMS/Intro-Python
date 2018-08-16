@@ -7,33 +7,33 @@ from item import Item
 room = {
     'library': Room('Library',
                     'The universe (which others call the Library) is composed of an indefinite, perhaps infinite number of hexagonal galleries.',
-                    []),
-
+                    Item('Book', 'It looks like the heaviest book you\'ve ever seen')),
+                    
     'outside':  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons",
-                     []),
+                     Item('Book', 'It looks like the heaviest book you\'ve ever seen')),
 
     'foyer':    Room("Foyer",
                      """Dim light filters in from the south. Dusty
                      passages run north and east.""",
-                     []),
+                     Item('Book', 'It looks like the heaviest book you\'ve ever seen')),
 
     'overlook': Room("Grand Overlook",
                      """A steep cliff appears before you, falling
                      into the darkness. Ahead to the north, a light flickers in
                      the distance, but there is no way across the chasm.""",
-                     []),
+                     Item('Book', 'It looks like the heaviest book you\'ve ever seen')),
 
     'narrow':   Room("Narrow Passage",
                      """The narrow passage bends here from west
                      to north. The smell of gold permeates the air.""",
-                     []),
+                     Item('Book', 'It looks like the heaviest book you\'ve ever seen')),
 
     'treasure': Room("Treasure Chamber",
                      """You've found the long-lost treasure
                      chamber! Sadly, it has already been completely emptied by
                      earlier adventurers. The only exit is to the south.""",
-                     []),
+                     Item("Treasure Chest", "You've hit the motherload.")),
 }
 
 
@@ -66,14 +66,13 @@ cmd = ''
 done = False
 
 def print_room_info():
-    # * Prints the current room name
     print(andrew.room.name)
-    # * Prints the current description (the textwrap module might be useful here)
     print(andrew.room.description)
-    # * Print all the items in the current room
-    andrew.room.print_items()
+    andrew.room.print_items(andrew)
 
 while not done:
+    print_room_info()
+
     cmd = input(
         """Please enter a command:
         \n
@@ -86,6 +85,13 @@ while not done:
 
     if cmd == 'q':
         done = True
+
+    # elif cmd in ['n','s','e','w']:
+    #     if cmd == 'n':
+    #     if cmd == 's':
+    #     if cmd == 'e':
+    #     if cmd == 'w':
+
 
 
 # Write a loop that:
